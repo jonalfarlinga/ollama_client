@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ollama Chat Client</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🦙 Ollama Chat</h1>
+      <div class="controls">
+        <button class="toggle-sidebar-btn" onclick="toggleSidebar()">
+          ⚙️ Settings
+        </button>
+        <select id="modelSelect">
+          <option value="">Loading models...</option>
+        </select>
+        <button class="clear-btn" onclick="clearChat()">Clear Chat</button>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h3>Chat Parameters</h3>
+          <button class="close-sidebar-btn" onclick="toggleSidebar()">×</button>
+        </div>
+        <div class="sidebar-content">
+          <label for="parametersInput">Parameters (JSON):</label>
+          <textarea
+            id="parametersInput"
+            class="parameters-input"
+            placeholder='{"temperature": 0.7, "num_predict": 100, "top_p": 0.9}'
+            rows="8"
+          ></textarea>
+          <div class="parameter-buttons">
+            <button onclick="applyParameters()">Apply</button>
+            <button onclick="resetParameters()">Reset</button>
+          </div>
+          <div class="parameter-help">
+            <h4>Available Parameters:</h4>
+            <ul>
+              <li><code>seed</code>: Integer for reproducible outputs</li>
+              <li><code>temperature</code>: 0.0-2.0 (higher = more random)</li>
+              <li><code>top_k</code>: Integer (limits next token selection)</li>
+              <li><code>top_p</code>: 0.0-1.0 (nucleus sampling threshold)</li>
+              <li>
+                <code>min_p</code>: 0.0-1.0 (minimum probability threshold)
+              </li>
+              <li><code>stop</code>: String (stop sequences for generation)</li>
+              <li><code>num_ctx</code>: Integer (context length in tokens)</li>
+              <li>
+                <code>num_predict</code>: Integer (max tokens to generate)
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-container">
+        <div class="messages" id="messages">
+          <div class="message assistant">
+            Hello! I'm your Ollama chat assistant. How can I help you today?
+          </div>
+        </div>
+
+        <div class="input-area">
+          <textarea
+            id="messageInput"
+            class="message-input"
+            placeholder="Type your message here... (Shift+Enter for new line, Enter to send)"
+            rows="2"
+          ></textarea>
+          <button id="sendBtn" class="send-btn" onclick="sendMessage()">
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+  </body>
+</html>
