@@ -35,7 +35,7 @@
           <textarea
             id="parametersInput"
             class="parameters-input"
-            placeholder='{"temperature": 0.7, "num_predict": 100, "top_p": 0.9}'
+            placeholder='{"options":{"temperature": 0.7, "num_predict": 100, "top_p": 0.9}}'
             rows="8"
           ></textarea>
           <div class="parameter-buttons">
@@ -45,17 +45,35 @@
           <div class="parameter-help">
             <h4>Available Parameters:</h4>
             <ul>
-              <li><code>seed</code>: Integer for reproducible outputs</li>
-              <li><code>temperature</code>: 0.0-2.0 (higher = more random)</li>
-              <li><code>top_k</code>: Integer (limits next token selection)</li>
-              <li><code>top_p</code>: 0.0-1.0 (nucleus sampling threshold)</li>
+              <li><code>format</code>: "json" or json-schema</li>
+              <li><code>think</code>: Boolean for chain-of-thought reasoning</li>
+              <li><code>keep_alive</code>: Boolean to keep the model loaded</li>
               <li>
-                <code>min_p</code>: 0.0-1.0 (minimum probability threshold)
-              </li>
-              <li><code>stop</code>: String (stop sequences for generation)</li>
-              <li><code>num_ctx</code>: Integer (context length in tokens)</li>
-              <li>
-                <code>num_predict</code>: Integer (max tokens to generate)
+                <code>options</code>: Object containing model options:
+                <ul>
+                  <li><code>seed</code>: Integer for reproducible outputs</li>
+                  <li>
+                    <code>temperature</code>: 0.0-2.0 (higher = more random)
+                  </li>
+                  <li>
+                    <code>top_k</code>: Integer (limits next token selection)
+                  </li>
+                  <li>
+                    <code>top_p</code>: 0.0-1.0 (nucleus sampling threshold)
+                  </li>
+                  <li>
+                    <code>min_p</code>: 0.0-1.0 (minimum probability threshold)
+                  </li>
+                  <li>
+                    <code>stop</code>: String (stop sequences for generation)
+                  </li>
+                  <li>
+                    <code>num_ctx</code>: Integer (context length in tokens)
+                  </li>
+                  <li>
+                    <code>num_predict</code>: Integer (max tokens to generate)
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>

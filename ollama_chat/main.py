@@ -18,7 +18,6 @@ def chat():
     user_message = data.get('message', '')
     model = data.get('model', 'mistral')
     parameters = data.get('parameters', {})
-    print(f"Model: {model}, Parameters: {parameters}")
 
     if not user_message:
         return jsonify({'error': 'No message provided'}), 400
@@ -27,11 +26,21 @@ def chat():
     chat_history.append({'role': 'user', 'content': user_message})
 
     try:
+        # Prepare chat kwargs with required parameters
+        chat_kwargs = {
+            'model': model,
+            'messages': chat_history,
+            'stream': False
+        }
+
+        # Add optional parameters dynamically if they exist
+        optional_params = ['format', 'options', 'think', 'keep_alive']
+        for param in optional_params:
+            if param in parameters and parameters[param] is not None:
+                chat_kwargs[param] = parameters[param]
+
         # Get response from Ollama
-        response = client.chat(model=model,
-                               messages=chat_history,
-                               stream=False,
-                               options=parameters.get('options', {}))
+        response = client.chat(**chat_kwargs)
 
         assistant_message = response['message']['content']
         print(f"Assistant: {assistant_message}")
